@@ -3,18 +3,16 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three/build/three.module.js
 // Сцена
 const scene = new THREE.Scene();
 
-// Камера
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
-camera.position.set(0, 0, 150);
-camera.lookAt(0, 0, 0);
-
-// renderer
+// Отрисовщик
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
+// Камера
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 150;
+
 // Линии
-const material = new THREE.LineBasicMaterial({ color: 0x0000ff });
 const points = [
   new THREE.Vector3(0, -30, 0),
   new THREE.Vector3(-10, -20, 0),
@@ -39,8 +37,9 @@ const points = [
 ];
 
 const geometry = new THREE.BufferGeometry().setFromPoints(points);
-const line = new THREE.Line(geometry, material);
-scene.add(line);
+const material = new THREE.LineBasicMaterial({ color: 0x0000ff });
+const lines = new THREE.Line(geometry, material);
+scene.add(lines);
 
-// Поехали
+// Рендер
 renderer.render(scene, camera);
